@@ -9,6 +9,39 @@
  */
 'use strict';
 
-import { NativeModules } from 'react-native';
-module.exports = NativeModules.SplashScreen;
+import { NativeModules, DeviceEventEmitter } from 'react-native';
+const RNSplash = NativeModules.SplashScreen;
+
+export default class SplashScreen {
+  subscriptions = [];
+
+  static show() {
+    RNSplash.show();
+  }
+
+  static hide() {
+    RNSplash.hide();
+  }
+
+  static onHide(callback) {
+    subscriptions.push(DeviceEventEmitter.addListener('SS_HIDDEN', callback));
+  }
+
+  static offHide() {
+    subscriptions.forEach((subscription) => {
+      subscription && subscription.remove();
+    });
+
+    subscriptions = [];
+  }
+
+  static isShowing() {
+    return RNSplash.isShowing();
+  }
+
+  static setText(text) {
+    return RNSplash.setText(text);
+  }
+
+}
 

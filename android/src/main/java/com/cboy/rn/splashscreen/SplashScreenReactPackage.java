@@ -1,4 +1,4 @@
-package org.devio.rn.splashscreen;
+package com.cboy.rn.splashscreen;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
@@ -19,7 +19,6 @@ import java.util.List;
  */
 public class SplashScreenReactPackage implements ReactPackage {
 
-    // Deprecated RN 0.47
     public List<Class<? extends JavaScriptModule>> createJSModules() {
         return Collections.emptyList();
     }

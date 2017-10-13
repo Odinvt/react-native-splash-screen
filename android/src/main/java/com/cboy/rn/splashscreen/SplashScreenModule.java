@@ -1,5 +1,6 @@
-package org.devio.rn.splashscreen;
+package com.cboy.rn.splashscreen;
 
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -15,6 +16,8 @@ import com.facebook.react.bridge.ReactMethod;
 public class SplashScreenModule extends ReactContextBaseJavaModule{
     public SplashScreenModule(ReactApplicationContext reactContext) {
         super(reactContext);
+
+        SplashScreen.mReactContext = reactContext;
     }
 
     @Override
@@ -22,19 +25,23 @@ public class SplashScreenModule extends ReactContextBaseJavaModule{
         return "SplashScreen";
     }
 
-    /**
-     * 打开启动屏
-     */
     @ReactMethod
     public void show() {
         SplashScreen.show(getCurrentActivity());
     }
 
-    /**
-     * 关闭启动屏
-     */
     @ReactMethod
     public void hide() {
         SplashScreen.hide(getCurrentActivity());
+    }
+
+    @ReactMethod
+    public void isShowing(Promise promise) {
+        SplashScreen.isShowing(promise);
+    }
+
+    @ReactMethod
+    public void setText(String text, Promise promise) {
+        SplashScreen.setText(text, promise);
     }
 }
