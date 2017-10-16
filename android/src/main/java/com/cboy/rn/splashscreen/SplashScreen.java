@@ -4,6 +4,8 @@ import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.TextView;
 
 import com.facebook.react.bridge.Promise;
@@ -109,8 +111,36 @@ public class SplashScreen {
                 if(mSplashDialog.isShowing()) {
                     mText = text;
 
-                    TextView tv1 = (TextView)mSplashDialog.findViewById(R.id.splashTextView);
-                    tv1.setText(mText);
+                    final TextView tv1 = (TextView)mSplashDialog.findViewById(R.id.splashTextView);
+
+                    // Start from 0.1f if you desire 90% fade animation
+                    final Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+                    fadeIn.setDuration(200);
+                    fadeIn.setStartOffset(0);
+                    // End to 0.1f if you desire 90% fade animation
+                    final Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+                    fadeOut.setDuration(200);
+                    fadeOut.setStartOffset(0);
+
+                    fadeOut.setAnimationListener(new Animation.AnimationListener(){
+                        @Override
+                        public void onAnimationEnd(Animation arg0) {
+                            // start fadeIn when fadeOut ends
+                            tv1.setText(mText);
+                            tv1.startAnimation(fadeIn);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation arg0) {
+                        }
+
+                        @Override
+                        public void onAnimationStart(Animation arg0) {
+                        }
+                    });
+
+                    tv1.startAnimation(fadeOut);
+
                     promise.resolve(true);
                 } else {
                     promise.resolve(false);
