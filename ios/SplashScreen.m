@@ -38,11 +38,31 @@ RCT_EXPORT_MODULE()
                    });
 }
 
-+ (void)setCustomText :(NSString* )name {
++ (void)setCustomText:(NSString* )text {
     UIView *rootView = [[[NSBundle mainBundle] loadNibNamed:@"LaunchScreen" owner:self options:nil] objectAtIndex:0];
     UIView* containerVier = [rootView.subviews objectAtIndex:0];
     UILabel *tagLabel =  (UILabel*)[containerVier viewWithTag:1];
-    tagLabel.text = name;
+
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:0
+                     animations:^{
+                         tagLabel.alpha = 0.0f;
+                     }
+                     completion:^(BOOL finished) {
+                         // set the new value and fade in
+                         tagLabel.text = text;
+                         [UIView animateWithDuration:0.2
+                                               delay:0
+                                             options:0
+                                          animations:^{
+                                              tagLabel.alpha = 1.0f;
+                                          }
+                                          completion:nil];
+
+                     }];
+
+
 }
 
 + (void) jsLoadError:(NSNotification*)notification
