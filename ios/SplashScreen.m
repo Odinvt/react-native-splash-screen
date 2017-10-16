@@ -38,14 +38,46 @@ RCT_EXPORT_MODULE()
                    });
 }
 
++ (void)setCustomText:(NSString* )text {
+    UIView *rootView = [[[NSBundle mainBundle] loadNibNamed:@"LaunchScreen" owner:self options:nil] objectAtIndex:0];
+    UIView* containerVier = [rootView.subviews objectAtIndex:0];
+    UILabel *tagLabel =  (UILabel*)[containerVier viewWithTag:1];
+
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:0
+                     animations:^{
+                         tagLabel.alpha = 0.0f;
+                     }
+                     completion:^(BOOL finished) {
+                         // set the new value and fade in
+                         tagLabel.text = text;
+                         [UIView animateWithDuration:0.2
+                                               delay:0
+                                             options:0
+                                          animations:^{
+                                              tagLabel.alpha = 1.0f;
+                                          }
+                                          completion:nil];
+
+                     }];
+
+
+}
+
 + (void) jsLoadError:(NSNotification*)notification
 {
     // If there was an error loading javascript, hide the splash screen so it can be shown.  Otherwise the splash screen will remain forever, which is a hassle to debug.
     [SplashScreen hide];
 }
 
-RCT_EXPORT_METHOD(hide) {
+RCT_EXPORT_METHOD(hide){
     [SplashScreen hide];
+
+}
+
+RCT_EXPORT_METHOD(setText:test) {
+    [SplashScreen setCustomText:test];
 }
 
 @end
