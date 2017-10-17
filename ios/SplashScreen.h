@@ -8,8 +8,8 @@
  */
 #import <React/RCTBridgeModule.h>
 
-@interface SplashScreen : NSObject<RCTBridgeModule>
+@interface SplashScreen : NSObject <RCTBridgeModule>
 + (void)show;
 + (void)hide;
-+ (void)setCustomText;
++ (void)setCustomText:(NSString* )text;
 @end

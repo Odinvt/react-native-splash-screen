@@ -13,7 +13,7 @@ import { NativeModules, DeviceEventEmitter } from 'react-native';
 const RNSplash = NativeModules.SplashScreen;
 
 export default class SplashScreen {
-  subscriptions = [];
+  static subscriptions = [];
 
   static show() {
     RNSplash.show();
@@ -24,15 +24,15 @@ export default class SplashScreen {
   }
 
   static onHide(callback) {
-    subscriptions.push(DeviceEventEmitter.addListener('SS_HIDDEN', callback));
+    SplashScreen.subscriptions.push(DeviceEventEmitter.addListener('SS_HIDDEN', callback));
   }
 
   static offHide() {
-    subscriptions.forEach((subscription) => {
+    SplashScreen.subscriptions.forEach((subscription) => {
       subscription && subscription.remove();
     });
 
-    subscriptions = [];
+    SplashScreen.subscriptions = [];
   }
 
   static isShowing() {

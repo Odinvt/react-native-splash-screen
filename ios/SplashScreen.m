@@ -9,9 +9,12 @@
 
 #import "SplashScreen.h"
 #import <React/RCTBridge.h>
+#import "LaunchScreenViewController.h"
 
 static bool waiting = true;
+static bool showing = false;
 static bool addedJsLoadErrorObserver = false;
+static LaunchScreenViewController *launchScreenViewController = nil;
 
 @implementation SplashScreen
 - (dispatch_queue_t)methodQueue{
@@ -25,50 +28,57 @@ RCT_EXPORT_MODULE()
         addedJsLoadErrorObserver = true;
     }
 
-    while (waiting) {
+    /*while (waiting) {
         NSDate* later = [NSDate dateWithTimeIntervalSinceNow:0.1];
         [[NSRunLoop mainRunLoop] runUntilDate:later];
+    }*/
+    
+    UIViewController *root = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    
+    if(launchScreenViewController == nil) {
+        launchScreenViewController = [[LaunchScreenViewController alloc] initWithNibName:@"LaunchScreenViewController" bundle:nil];
     }
+
+    [root presentViewController:launchScreenViewController animated:false completion:nil];
+    
+    showing = true;
+    
+    NSDate* later = [NSDate dateWithTimeIntervalSinceNow:0.5];
+    [[NSRunLoop mainRunLoop] runUntilDate:later];
 }
 
 + (void)hide {
     dispatch_async(dispatch_get_main_queue(),
                    ^{
+                       [launchScreenViewController dismissViewControllerAnimated:YES completion:nil];
                        waiting = false;
+                       showing = false;
+                       launchScreenViewController = nil;
                    });
 }
 
 + (void)setCustomText:(NSString* )text {
-    UIView *rootView = [[[NSBundle mainBundle] loadNibNamed:@"LaunchScreen" owner:self options:nil] objectAtIndex:0];
-    UIView* containerVier = [rootView.subviews objectAtIndex:0];
-    UILabel *tagLabel =  (UILabel*)[containerVier viewWithTag:1];
-
-    [UIView animateWithDuration:0.2
-                          delay:0
-                        options:0
-                     animations:^{
-                         tagLabel.alpha = 0.0f;
-                     }
-                     completion:^(BOOL finished) {
-                         // set the new value and fade in
-                         tagLabel.text = text;
-                         [UIView animateWithDuration:0.2
-                                               delay:0
-                                             options:0
-                                          animations:^{
-                                              tagLabel.alpha = 1.0f;
-                                          }
-                                          completion:nil];
-
-                     }];
-
-
+    if(launchScreenViewController != nil) {
+        [launchScreenViewController setText:text];
+    }
 }
 
 + (void) jsLoadError:(NSNotification*)notification
 {
     // If there was an error loading javascript, hide the splash screen so it can be shown.  Otherwise the splash screen will remain forever, which is a hassle to debug.
     [SplashScreen hide];
+}
+
+RCT_EXPORT_METHOD(  isShowing:resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject
+                  
+                  )
+{
+    if(launchScreenViewController == nil || !showing) {
+        resolve(@"");
+    } else {
+        resolve(@"ok");
+    }
 }
 
 RCT_EXPORT_METHOD(hide){

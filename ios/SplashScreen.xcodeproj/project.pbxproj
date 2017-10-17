@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D7682841D8E76D10014119E /* SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7682831D8E76D10014119E /* SplashScreen.m */; };
+		D52D650A1F9510A500C0BFAD /* LaunchScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D52D65081F9510A500C0BFAD /* LaunchScreenViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +27,8 @@
 		3D7682761D8E76B80014119E /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSplashScreen.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D7682821D8E76D10014119E /* SplashScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashScreen.h; sourceTree = "<group>"; };
 		3D7682831D8E76D10014119E /* SplashScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashScreen.m; sourceTree = "<group>"; };
+		D52D65071F9510A500C0BFAD /* LaunchScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchScreenViewController.h; sourceTree = "<group>"; };
+		D52D65081F9510A500C0BFAD /* LaunchScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchScreenViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +45,7 @@
 		3D76826D1D8E76B80014119E = {
 			isa = PBXGroup;
 			children = (
+				D57918F21F950D7B00207407 /* LaunchScreenViewController */,
 				3D7682821D8E76D10014119E /* SplashScreen.h */,
 				3D7682831D8E76D10014119E /* SplashScreen.m */,
 				3D7682771D8E76B80014119E /* Products */,
@@ -54,6 +58,15 @@
 				3D7682761D8E76B80014119E /* libSplashScreen.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D57918F21F950D7B00207407 /* LaunchScreenViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D52D65071F9510A500C0BFAD /* LaunchScreenViewController.h */,
+				D52D65081F9510A500C0BFAD /* LaunchScreenViewController.m */,
+			);
+			name = LaunchScreenViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -114,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D7682841D8E76D10014119E /* SplashScreen.m in Sources */,
+				D52D650A1F9510A500C0BFAD /* LaunchScreenViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
