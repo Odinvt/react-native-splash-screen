@@ -68,8 +68,6 @@ public class SplashScreen {
                         Log.e("SPLASHSCREEN", " INITIALIZING SPLASHSCREEN DIALOG ");
                         mSplashDialog = new Dialog(activity,fullScreen? R.style.SplashScreen_Fullscreen:R.style.SplashScreen_SplashTheme);
                         mSplashDialog.setContentView(R.layout.launch_screen);
-                        TextView tv1 = (TextView)mSplashDialog.findViewById(R.id.splashTextView);
-                        tv1.setText(mText);
                         mSplashDialog.setCancelable(false);
                     } else {
                         Log.e("SPLASHSCREEN", " WE ALREADY HAVE A REFERENCE TO SPLASHSCREEN DIALOG ");
